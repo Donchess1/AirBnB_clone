@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """General Model module"""
 import uuid
-from diko import att_dic
 from datetime import datetime
 
 class BaseModel:
