@@ -5,7 +5,7 @@ from datetime import datetime
 
 class BaseModel:
     """Class BaseModel"""
-    def __init__(self, created_at=datetime.now().isoformat(), updated_at=datetime.now().isoformat(), __dict__={}, id=None):
+    def __init__(self, *args, **kwags, created_at=datetime.now().isoformat(), updated_at=datetime.now().isoformat(), __dict__={}, id=None):
         """
         init methods that initializes the class
         Attribute:
