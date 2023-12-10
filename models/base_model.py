@@ -1,12 +1,16 @@
 #!/usr/bin/python3
+
 """General Model module"""
-import uuid
+
+from uuid import uuid4
 from datetime import datetime
 from models import storage
+
 
 class BaseModel:
 
     """Class BaseModel"""
+
     def __init__(self, *args, **kwargs):
         """
         init methods that initializes the class
@@ -21,10 +25,11 @@ class BaseModel:
 
             if (key == "created_at" or key == "updated_at"):
                 value ==  datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+
             setattr(self, key, value)
 
         if "ïd" not in kwargs.keys():
-            self.id = str(uuid.uuid4())
+            self.id = str(uuid4())
 
         if "created_at" not in kwargs.keys():
             self.created_at = datetime.now()
@@ -37,7 +42,7 @@ class BaseModel:
 
     def __str__(self):
         """defines string value  of the class"""
-        return "[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__)
+        return "[{:s}] ({:s}) {:s}".format(self.__class__.__name__, self.id, str(self.__dict__))
 
     def save(self):
         """updates updated_at"""
