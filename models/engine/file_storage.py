@@ -1,52 +1,51 @@
-#!/usr/bin/env python3
-
-""" Module for saving and loading instances to JSON """
-
 import json
-
+import os
+from model.base_model import BaseModel
 
 class FileStorage:
+    """
 
-    """ Class that stores and loads instances to/from files in JSON format """
-
+    """
     __file_path = "file.json"
     __objects = {}
 
+    def new(self, obj):
+        """
+
+        """
+        obj_clss_name = obj.__class__.__name__
+        key = "{}.{}".format(obj_clss_name, obj.id)
+        FileStorage.__objects[key] = obj
+
     def all(self):
-        """ Returns the dictionary (__objects) """
+        """
+
+        """
         return FileStorage.__objects
 
-    def new(self, obj):
-        """ Sets in __objects the obj key <obj class name>.id """
-        obj_id = obj.__class__.__name__ + '.' + obj.id
-        FileStorage.__objects[obj_id] = obj
-
     def save(self):
-        """ this saves the __object into the JSON file with path: __file_path """
-        json_dic = {}
+        """
 
-        for key, value in FileStorage.__objects.items():
-            json_dic[key] = value.to_dict()
-        with open(self.__file_path, "w", encoding="utf-8") as myfile:
-            json.dump(json_dic, myfile)
+        """
+        all_objs = FileStorage.__objects
+        obj_dict = {}
+        for obj in all_objs.key():
+            obj_dict[obj] = all_objs[obj].to_dict()
+
+        with open(FileStorage.__file_path, "w", encoding="utf-8" as file:
 
     def reload(self):
-        """retrieves the JSON file to __objects if  the JSON file
-        (__file_path) exists """
-        try:
-            with open(FileStorage.__file_path, encoding="utf-8") as myfile:
-                from models.base_model import BaseModel
-                from models.user import User
-                from models.city import City
-                from models.amenity import Amenity
-                from models.place import Place
-                from models.review import Review
-                from models.state import State
+        """
 
-                my_obj = json.load(myfile)
-                for key, value in my_obj.items():
-                    my_class = value["__class__"]
-                    obj = eval(my_class + "(**value)")
-                    FileStorage.__objects[key] = obj
-        except IOError:
-            pass
+        """
+        if os.path.isfile(FileStorage.__file_path):
+        with open(FileStorage.__file_path, "r", encoding="utf-8" as file:
+            try:
+                obj_dict = json.load(file)
+                for key, value in obj_dict.items():
+                    class_name, obj_id = key.split('.')
+                    clss = eval(class_name)
+                    instanse = clss (**value)
+                    FileStorage.__objects[key] = instanse
+                except Exception:
+                    pass
