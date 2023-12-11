@@ -135,7 +135,7 @@ class HBNBCommand(cmd.Cmd):
                 return None
 
         cmd_argv[1] = cmd_argv[1].replace("\"", "")
-        key = cmd_argv[0] + '.' + cmd_argv[1]
+        keys = cmd_argv[0] + '.' + cmd_argv[1]
 
         if all_my_objs.get(keys, False):
             all_my_objs.pop(keys)
@@ -161,8 +161,8 @@ class HBNBCommand(cmd.Cmd):
                             cmd_argv.append(j.replace("\"", "")
                                             .replace('\'', ""))
                 else:
-                    arg_key = arg.replace(",", "")
-                    part1_argv = arg_key.split()
+                    arg_keys = arg.replace(",", "")
+                    part1_argv = arg_keys.split()
                     for i in part1_argv[:2]:
                         cmd_argv.append(i.replace("\"", ""))
                     part2_argv = arg.split(", ")[1:]
