@@ -153,12 +153,12 @@ class HBNBCommand(cmd.Cmd):
                 if "{" in arg:
                     is_dict = 1
                     part1_argv = arg.split(",")[0].split()
-                    for i in part1_argv:
-                        cmd_argv.append(i.replace("\"", ""))
+                    for a in part1_argv:
+                        cmd_argv.append(a.replace("\"", ""))
                     part2_argv = arg.replace("}", "").split("{")[1].split(", ")
-                    for i in part2_argv:
-                        for j in i.split(": "):
-                            cmd_argv.append(j.replace("\"", "")
+                    for a in part2_argv:
+                        for b in a.split(": "):
+                            cmd_argv.append(b.replace("\"", "")
                                             .replace('\'', ""))
                 else:
                     arg_keys = arg.replace(",", "")
