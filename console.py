@@ -123,7 +123,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return None
         try:
-            eval(cmd_argv[0])
+            eval(comd_argv[0])
         except:
             print("** class doesn't exist **")
             return None
