@@ -76,10 +76,10 @@ class HBNBCommand(cmd.Cmd):
                 return None
 
         cmd_argv[1] = cmd_argv[1].replace("\"", "")
-        key = cmd_argv[0] + '.' + cmd_argv[1]
+        keys = cmd_argv[0] + '.' + cmd_argv[1]
 
-        if all_my_objs.get(key, False):
-            print(all_my_objs[key])
+        if all_my_objs.get(keys, False):
+            print(all_my_objs[keys])
         else:
             print("** no instance found **")
 
@@ -97,14 +97,14 @@ class HBNBCommand(cmd.Cmd):
         all_my_objs = storage.all()
         print_list = []
         len_objs = len(all_my_objs)
-        for key, value in all_my_objs.items():
+        for keys, value in all_my_objs.items():
             if not cmd_argv:
                 if HBNBCommand.__count == 0:
                     print_list.append("\"" + str(value) + "\"")
                 else:
                     print_list.append(str(value))
             else:
-                check = key.split('.')
+                check = keys.split('.')
                 if cmd_argv[0] == check[0]:
                     if HBNBCommand.__count == 0:
                         print_list.append("\"" + str(value) + "\"")
@@ -137,8 +137,8 @@ class HBNBCommand(cmd.Cmd):
         cmd_argv[1] = cmd_argv[1].replace("\"", "")
         key = cmd_argv[0] + '.' + cmd_argv[1]
 
-        if all_my_objs.get(key, False):
-            all_my_objs.pop(key)
+        if all_my_objs.get(keys, False):
+            all_my_objs.pop(keys)
             storage.save()
         else:
             print("** no instance found **")
@@ -200,19 +200,19 @@ class HBNBCommand(cmd.Cmd):
 
         all_my_objs = storage.all()
 
-        key = cmd_argv[0] + '.' + cmd_argv[1]
-        if all_my_objs.get(key, False):
+        keys = cmd_argv[0] + '.' + cmd_argv[1]
+        if all_my_objs.get(keys, False):
             if (len(cmd_argv) >= 3):
                 if (len(cmd_argv) % 2) == 0:
                     for i in range(2, len(cmd_argv), 2):
                         attr = cmd_argv[i]
-                        type_att = getattr(all_my_objs[key], cmd_argv[i], "")
+                        type_att = getattr(all_my_objs[keys], cmd_argv[i], "")
                         try:
                             cast_val = type(type_att)(cmd_argv[i + 1])
                         except:
                             cast_val = type_att
-                        setattr(all_my_objs[key], cmd_argv[i], cast_val)
-                        all_my_objs[key].save()
+                        setattr(all_my_objs[keys], cmd_argv[i], cast_val)
+                        all_my_objs[keys].save()
                         if is_dict == 0:
                             break
                 else:
@@ -236,11 +236,11 @@ class HBNBCommand(cmd.Cmd):
         all_my_objs = storage.all()
         count = 0
 
-        for key, value in all_my_objs.items():
+        for keys, value in all_my_objs.items():
             if not cmd_argv:
                 count += 1
             else:
-                check = key.split('.')
+                check = keys.split('.')
                 if cmd_argv[0] == check[0]:
                     count += 1
         print(count)
